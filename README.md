@@ -19,7 +19,7 @@ cd nl
 
 - 下のサンプルコードの`${pref}`は都道府県コード。`01-47`。
 - geojsonのシンプル度（データ量削減）
-  - 環境変数`SIMPLIFY`に`1%-100%`を設定し、makeを実行する。例えば`SIMPLIFY`を`10%`にした場合、90%のデータを削減した.geojsonを生成する。何も設定しない場合、`SIMPLIFY`は`100%`となる。
+  - 環境変数`SIMPLIFY`に`1-100`を設定し、makeを実行する。例えば`SIMPLIFY`を`10`にした場合、90%のデータを削減した.geojsonを生成する。何も設定しない場合、`SIMPLIFY`は`100`となる。
 
 ### [小学校区データ 2016年](http://nlftp.mlit.go.jp/ksj/gml/datalist/KsjTmplt-A27-v2_1.html)
 
