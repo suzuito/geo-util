@@ -40,3 +40,21 @@ N02-18_GML_Station.geojson: N02-18_GML_raw
 
 N02-18_GML_RailroadSection.geojson: N02-18_GML_raw
 	$(NPM_BIN)/mapshaper $(basename $<)/*_RailroadSection.shp encoding=shift-jis -simplify $(SIMPLIFY)% -o $@
+
+# 河川
+W05-08_%_GML.zip:
+	curl -o $(notdir $@) http://nlftp.mlit.go.jp/ksj/gml/data/W05/W05-08/$(notdir $@)
+
+W05-08_%_GML_Stream.geojson: W05-08_%_GML_raw
+	$(NPM_BIN)/mapshaper $(basename $<)/*_Stream.shp encoding=shift-jis -simplify $(SIMPLIFY)% -o $@
+
+W05-08_%_GML_RiverNode.geojson: W05-08_%_GML_raw
+	$(NPM_BIN)/mapshaper $(basename $<)/*_RiverNode.shp encoding=shift-jis -simplify $(SIMPLIFY)% -o $@
+
+# 道路
+N06-18_GML.zip:
+	curl -o $(notdir $@) http://nlftp.mlit.go.jp/ksj/gml/data/N06/N06-18/$(notdir $@)
+
+N06-18_HighwaySection.geojson: N06-18_GML_raw
+
+N06-18_Joint.geojson: N06-18_GML_raw
