@@ -51,7 +51,7 @@ W05-08_%_GML_Stream.geojson: W05-08_%_GML_raw
 W05-08_%_GML_RiverNode.geojson: W05-08_%_GML_raw
 	$(NPM_BIN)/mapshaper $(basename $<)/*_RiverNode.shp encoding=shift-jis -simplify $(SIMPLIFY)% -o $@
 
-# 道路
+# 高速道路
 N06-18_GML.zip:
 	curl -o $(notdir $@) http://nlftp.mlit.go.jp/ksj/gml/data/N06/N06-18/$(notdir $@)
 
