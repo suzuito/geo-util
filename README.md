@@ -54,3 +54,9 @@ make N02-18_GML_Station.geojson
 # 鉄道の路線を表す線分データ
 make N02-18_GML_RailroadSection.geojson
 ```
+
+### [高速道路データ 2019年](https://nlftp.mlit.go.jp/ksj/gml/data/N06/N06-18/N06-18_GML.zip)
+
+```sh
+make N06-18_GML.zip
+```

@@ -4,6 +4,14 @@ SIMPLIFY ?= 100
 %_raw: %.zip
 	unzip $< -d $(basename $<)_raw || true
 
+# 行政区
+
+N03-190101_%_GML.zip:
+	curl -o $(notdir $@) -LO https://nlftp.mlit.go.jp/ksj/gml/data/N03/N03-2019/$(notdir $@)
+
+N03-190101_%_GML.geojson: N03-190101_%_GML_raw
+	$(NPM_BIN)/mapshaper $(basename $<)/shape/A03-190101*.shp encoding=shift-jis -simplify $(SIMPLIFY)% -o $@
+
 # 小学校区 2016
 A27-16_%_GML.zip:
 	curl -o $(notdir $@) -LO http://nlftp.mlit.go.jp/ksj/gml/data/A27/A27-16/$(notdir $@)
