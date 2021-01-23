@@ -1,0 +1,19 @@
+#!/bin/bash
+
+BUCKET_NAME=suzuito-geojson
+
+GROUP_NAME=${1}
+
+shift 1
+LOCAL_FILES=$*
+
+for LOCAL_FILE in ${LOCAL_FILES}
+do
+    REMOTE_FILE=gs://${BUCKET_NAME}/${GROUP_NAME}/$(basename ${LOCAL_FILE})
+    CMD="gsutil cp ${LOCAL_FILE} ${REMOTE_FILE}"
+    echo ${CMD}
+    $CMD
+    CMD="gsutil setmeta -h content-type:application/vnd.geo+json ${REMOTE_FILE}"
+    echo ${CMD}
+    $CMD
+done
