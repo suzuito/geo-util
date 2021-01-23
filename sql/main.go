@@ -8,6 +8,7 @@ import (
 	"strconv"
 
 	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/lib/pq"
 	geojson "github.com/paulmach/go.geojson"
 	"golang.org/x/xerrors"
 )
@@ -67,7 +68,7 @@ func putAreas(ctx context.Context, db *sql.DB, areaMap *map[int][]Area) error {
 		_, err = db.ExecContext(
 			ctx,
 			fmt.Sprintf(
-				"INSERT INTO geom VALUES ('%d', ST_GeomFromGeoJSON('%s', 3))",
+				"INSERT INTO districts VALUES ('%d', ST_GeomFromGeoJSON('%s'))",
 				code,
 				string(b),
 			),
@@ -82,7 +83,7 @@ func putAreas(ctx context.Context, db *sql.DB, areaMap *map[int][]Area) error {
 func getAreas(ctx context.Context, db *sql.DB, lat, lng float64, areas *[]Area) error {
 	rows, err := db.Query(
 		fmt.Sprintf(
-			"SELECT code FROM geom WHERE ST_Contains(g, ST_GeomFromText('POINT(%f %f)', 4326))",
+			"SELECT code FROM districts WHERE ST_Contains(g, ST_GeomFromText('POINT(%f %f)', 4326))",
 			lat, lng,
 		),
 	)
@@ -107,8 +108,9 @@ func main() {
 	areaMaps := map[int][]Area{}
 	// readGeoJSON("../nl/N03-190101_13_GML.geojson")
 	readGeoJSON("../nl/N03-190101_14_GML.geojson", &areaMaps)
-	//
-	db, err := sql.Open("mysql", "root:@/test")
+	// Mysql
+	// db, err := sql.Open("mysql", "root:@/test")
+	db, err := sql.Open("postgres", "postgres://postgres:IDNcu9Kes68L6o6g@35.190.238.128/geocoding?sslmode=disable")
 	if err != nil {
 		panic(err)
 	}
